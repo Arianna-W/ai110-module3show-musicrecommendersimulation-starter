@@ -252,6 +252,547 @@ Output of `python src/main.py` for the late-night study profile (genre=lofi, moo
 
 ---
 
+## Profile Test Results (Standard and Edge Cases)
+
+Output of `python src/main.py` for every profile in `PROFILES` and `EDGE_PROFILES` (top 5 each, k=5).
+
+### High-Energy Pop
+
+Clean win: Sunrise City matches genre and mood.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Sunrise City
+    Neon Echo  |  Score: 6.72
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+1.84)
+      - valence closeness (+0.49)
+      - acousticness closeness (+0.46)
+      - tempo_bpm closeness (+0.46)
+      - danceability closeness (+0.47)
+------------------------------------------------------------
+#2  Gym Hero
+    Max Pulse  |  Score: 5.84
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+1.94)
+      - valence closeness (+0.46)
+      - acousticness closeness (+0.47)
+      - tempo_bpm closeness (+0.48)
+      - danceability closeness (+0.48)
+------------------------------------------------------------
+#3  Rooftop Lights
+    Indigo Parade  |  Score: 4.54
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.72)
+      - valence closeness (+0.48)
+      - acousticness closeness (+0.38)
+      - tempo_bpm closeness (+0.48)
+      - danceability closeness (+0.48)
+------------------------------------------------------------
+#4  Bass Cathedral
+    Kilo Verse  |  Score: 3.82
+    Reasons:
+      - energy closeness (+1.90)
+      - valence closeness (+0.48)
+      - acousticness closeness (+0.46)
+      - tempo_bpm closeness (+0.50)
+      - danceability closeness (+0.47)
+------------------------------------------------------------
+#5  Storm Runner
+    Voltline  |  Score: 3.60
+    Reasons:
+      - energy closeness (+1.98)
+      - valence closeness (+0.32)
+      - acousticness closeness (+0.50)
+      - tempo_bpm closeness (+0.40)
+      - danceability closeness (+0.41)
+------------------------------------------------------------
+```
+
+### Chill Lofi
+
+Same as the sample output above.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Midnight Coding
+    LoRoom  |  Score: 6.89
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+1.96)
+      - valence closeness (+0.48)
+      - acousticness closeness (+0.45)
+      - tempo_bpm closeness (+0.50)
+      - danceability closeness (+0.49)
+------------------------------------------------------------
+#2  Library Rain
+    Paper Lanterns  |  Score: 6.83
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+1.90)
+      - valence closeness (+0.50)
+      - acousticness closeness (+0.47)
+      - tempo_bpm closeness (+0.47)
+      - danceability closeness (+0.49)
+------------------------------------------------------------
+#3  Focus Flow
+    LoRoom  |  Score: 5.98
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+2.00)
+      - valence closeness (+0.49)
+      - acousticness closeness (+0.49)
+      - tempo_bpm closeness (+0.49)
+      - danceability closeness (+0.50)
+------------------------------------------------------------
+#4  Spacewalk Thoughts
+    Orbit Bloom  |  Score: 4.50
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.76)
+      - valence closeness (+0.47)
+      - acousticness closeness (+0.44)
+      - tempo_bpm closeness (+0.42)
+      - danceability closeness (+0.41)
+------------------------------------------------------------
+#5  Coffee Shop Stories
+    Slow Stereo  |  Score: 3.76
+    Reasons:
+      - energy closeness (+1.94)
+      - valence closeness (+0.45)
+      - acousticness closeness (+0.46)
+      - tempo_bpm closeness (+0.45)
+      - danceability closeness (+0.47)
+------------------------------------------------------------
+```
+
+### Deep Intense Rock
+
+Only one rock song exists, so #2 onward is energy-driven (a pop song takes #2 on mood).
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Storm Runner
+    Voltline  |  Score: 6.80
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+1.98)
+      - valence closeness (+0.43)
+      - acousticness closeness (+0.50)
+      - tempo_bpm closeness (+0.49)
+      - danceability closeness (+0.40)
+------------------------------------------------------------
+#2  Gym Hero
+    Max Pulse  |  Score: 4.46
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.98)
+      - valence closeness (+0.29)
+      - acousticness closeness (+0.47)
+      - tempo_bpm closeness (+0.42)
+      - danceability closeness (+0.29)
+------------------------------------------------------------
+#3  Iron Hymn
+    Black Ritual  |  Score: 3.75
+    Reasons:
+      - energy closeness (+1.90)
+      - valence closeness (+0.45)
+      - acousticness closeness (+0.47)
+      - tempo_bpm closeness (+0.42)
+      - danceability closeness (+0.50)
+------------------------------------------------------------
+#4  Bass Cathedral
+    Kilo Verse  |  Score: 3.32
+    Reasons:
+      - energy closeness (+1.94)
+      - valence closeness (+0.23)
+      - acousticness closeness (+0.46)
+      - tempo_bpm closeness (+0.41)
+      - danceability closeness (+0.27)
+------------------------------------------------------------
+#5  Night Drive Loop
+    Neon Echo  |  Score: 3.22
+    Reasons:
+      - energy closeness (+1.66)
+      - valence closeness (+0.43)
+      - acousticness closeness (+0.44)
+      - tempo_bpm closeness (+0.33)
+      - danceability closeness (+0.36)
+------------------------------------------------------------
+```
+
+### Sad but Hyper
+
+The only `sad` song (Blue Highway Blues) lands at #5. Genre + energy (4.0 max) overpower mood (1.0), so the "sad" listener gets upbeat pop.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Gym Hero
+    Max Pulse  |  Score: 4.58
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+1.94)
+      - valence closeness (+0.21)
+      - acousticness closeness (+0.42)
+------------------------------------------------------------
+#2  Sunrise City
+    Neon Echo  |  Score: 4.51
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+1.84)
+      - valence closeness (+0.18)
+      - acousticness closeness (+0.49)
+------------------------------------------------------------
+#3  Storm Runner
+    Voltline  |  Score: 2.79
+    Reasons:
+      - energy closeness (+1.98)
+      - valence closeness (+0.36)
+      - acousticness closeness (+0.45)
+------------------------------------------------------------
+#4  Iron Hymn
+    Black Ritual  |  Score: 2.75
+    Reasons:
+      - energy closeness (+1.86)
+      - valence closeness (+0.47)
+      - acousticness closeness (+0.42)
+------------------------------------------------------------
+#5  Blue Highway Blues
+    Otis Marlow  |  Score: 2.60
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+0.96)
+      - valence closeness (+0.45)
+      - acousticness closeness (+0.19)
+------------------------------------------------------------
+```
+
+### Unknown Genre
+
+No song can earn the 2.0 genre points, so the max score drops to ~5.0 and mood + energy decide the ranking.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Sunrise City
+    Neon Echo  |  Score: 3.93
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.96)
+      - valence closeness (+0.48)
+      - acousticness closeness (+0.49)
+------------------------------------------------------------
+#2  Rooftop Lights
+    Indigo Parade  |  Score: 3.84
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.92)
+      - valence closeness (+0.49)
+      - acousticness closeness (+0.43)
+------------------------------------------------------------
+#3  Concrete Psalms
+    Dre Maddox  |  Score: 2.81
+    Reasons:
+      - energy closeness (+1.96)
+      - valence closeness (+0.39)
+      - acousticness closeness (+0.46)
+------------------------------------------------------------
+#4  Night Drive Loop
+    Neon Echo  |  Score: 2.74
+    Reasons:
+      - energy closeness (+1.90)
+      - valence closeness (+0.34)
+      - acousticness closeness (+0.49)
+------------------------------------------------------------
+#5  Gym Hero
+    Max Pulse  |  Score: 2.65
+    Reasons:
+      - energy closeness (+1.74)
+      - valence closeness (+0.48)
+      - acousticness closeness (+0.42)
+------------------------------------------------------------
+```
+
+### Near-Miss Genre
+
+`indie` earns nothing against `indie pop` (exact string match); the indie pop song only ranks via mood.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Rooftop Lights
+    Indigo Parade  |  Score: 3.82
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.88)
+      - valence closeness (+0.47)
+      - acousticness closeness (+0.47)
+------------------------------------------------------------
+#2  Sunrise City
+    Neon Echo  |  Score: 3.60
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.76)
+      - valence closeness (+0.46)
+      - acousticness closeness (+0.39)
+------------------------------------------------------------
+#3  Night Drive Loop
+    Neon Echo  |  Score: 2.68
+    Reasons:
+      - energy closeness (+1.90)
+      - valence closeness (+0.37)
+      - acousticness closeness (+0.41)
+------------------------------------------------------------
+#4  Island Clock
+    Sol Tide  |  Score: 2.65
+    Reasons:
+      - energy closeness (+1.70)
+      - valence closeness (+0.47)
+      - acousticness closeness (+0.47)
+------------------------------------------------------------
+#5  Concrete Psalms
+    Dre Maddox  |  Score: 2.61
+    Reasons:
+      - energy closeness (+1.84)
+      - valence closeness (+0.41)
+      - acousticness closeness (+0.36)
+------------------------------------------------------------
+```
+
+### Out-of-Range Numbers
+
+No crash and no negative scores in the top 5, but out-of-range targets are accepted silently and tempo 300 earns 0 from every song.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Sunrise City
+    Neon Echo  |  Score: 4.13
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+0.64)
+      - valence closeness (+0.33)
+      - acousticness closeness (+0.16)
+      - tempo_bpm closeness (+0.00)
+------------------------------------------------------------
+#2  Gym Hero
+    Max Pulse  |  Score: 3.45
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+0.86)
+      - valence closeness (+0.36)
+      - acousticness closeness (+0.22)
+      - tempo_bpm closeness (+0.00)
+------------------------------------------------------------
+#3  Rooftop Lights
+    Indigo Parade  |  Score: 1.94
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+0.52)
+      - valence closeness (+0.34)
+      - acousticness closeness (+0.08)
+      - tempo_bpm closeness (+0.00)
+------------------------------------------------------------
+#4  Iron Hymn
+    Black Ritual  |  Score: 1.54
+    Reasons:
+      - energy closeness (+0.94)
+      - valence closeness (+0.38)
+      - acousticness closeness (+0.23)
+      - tempo_bpm closeness (+0.00)
+------------------------------------------------------------
+#5  Storm Runner
+    Voltline  |  Score: 1.51
+    Reasons:
+      - energy closeness (+0.82)
+      - valence closeness (+0.49)
+      - acousticness closeness (+0.20)
+      - tempo_bpm closeness (+0.00)
+------------------------------------------------------------
+```
+
+### Dead Center
+
+Only the single jazz/relaxed song gets a big lead; the rest are near-ties separated by hundredths.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Coffee Shop Stories
+    Slow Stereo  |  Score: 6.38
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+1.74)
+      - valence closeness (+0.40)
+      - acousticness closeness (+0.30)
+      - tempo_bpm closeness (+0.46)
+      - danceability closeness (+0.48)
+------------------------------------------------------------
+#2  Dust Road Home
+    Hollow Pines  |  Score: 3.71
+    Reasons:
+      - energy closeness (+1.96)
+      - valence closeness (+0.41)
+      - acousticness closeness (+0.38)
+      - tempo_bpm closeness (+0.49)
+      - danceability closeness (+0.47)
+------------------------------------------------------------
+#3  Velvet Hours
+    Marisol Vega  |  Score: 3.64
+    Reasons:
+      - energy closeness (+1.96)
+      - valence closeness (+0.39)
+      - acousticness closeness (+0.45)
+      - tempo_bpm closeness (+0.43)
+      - danceability closeness (+0.41)
+------------------------------------------------------------
+#4  Midnight Coding
+    LoRoom  |  Score: 3.55
+    Reasons:
+      - energy closeness (+1.84)
+      - valence closeness (+0.47)
+      - acousticness closeness (+0.40)
+      - tempo_bpm closeness (+0.41)
+      - danceability closeness (+0.44)
+------------------------------------------------------------
+#5  Island Clock
+    Sol Tide  |  Score: 3.48
+    Reasons:
+      - energy closeness (+1.90)
+      - valence closeness (+0.35)
+      - acousticness closeness (+0.47)
+      - tempo_bpm closeness (+0.40)
+      - danceability closeness (+0.36)
+------------------------------------------------------------
+```
+
+### Extremist
+
+The lone classical song wins easily (5.44 vs 2.08), then scores fall off a cliff.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Ashes on the Strings
+    Ember Quartet  |  Score: 5.44
+    Reasons:
+      - genre match (+2.00)
+      - mood match (+1.00)
+      - energy closeness (+1.56)
+      - valence closeness (+0.40)
+      - acousticness closeness (+0.48)
+------------------------------------------------------------
+#2  Spacewalk Thoughts
+    Orbit Bloom  |  Score: 2.08
+    Reasons:
+      - energy closeness (+1.44)
+      - valence closeness (+0.17)
+      - acousticness closeness (+0.46)
+------------------------------------------------------------
+#3  Blue Highway Blues
+    Otis Marlow  |  Score: 2.00
+    Reasons:
+      - energy closeness (+1.24)
+      - valence closeness (+0.35)
+      - acousticness closeness (+0.41)
+------------------------------------------------------------
+#4  Library Rain
+    Paper Lanterns  |  Score: 1.93
+    Reasons:
+      - energy closeness (+1.30)
+      - valence closeness (+0.20)
+      - acousticness closeness (+0.43)
+------------------------------------------------------------
+#5  Coffee Shop Stories
+    Slow Stereo  |  Score: 1.85
+    Reasons:
+      - energy closeness (+1.26)
+      - valence closeness (+0.15)
+      - acousticness closeness (+0.45)
+------------------------------------------------------------
+```
+
+### Missing Keys
+
+Crash: `score_song` indexes `user_prefs["genre"]` directly. `main.py` catches the `KeyError` so the run continues.
+
+```
+ERROR: recommender crashed, missing preference 'genre'
+```
+
+### Genre-Only Loyalist
+
+Mood match + energy (angry/Iron Hymn) beats every lofi song; three lofi songs follow because genre still adds 2.0 despite poor energy fit.
+
+```
+============================================================
+                    TOP RECOMMENDATIONS                     
+============================================================
+#1  Iron Hymn
+    Black Ritual  |  Score: 3.91
+    Reasons:
+      - mood match (+1.00)
+      - energy closeness (+1.96)
+      - valence closeness (+0.47)
+      - acousticness closeness (+0.47)
+------------------------------------------------------------
+#2  Midnight Coding
+    LoRoom  |  Score: 3.50
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+0.94)
+      - valence closeness (+0.37)
+      - acousticness closeness (+0.20)
+------------------------------------------------------------
+#3  Focus Flow
+    LoRoom  |  Score: 3.42
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+0.90)
+      - valence closeness (+0.35)
+      - acousticness closeness (+0.16)
+------------------------------------------------------------
+#4  Library Rain
+    Paper Lanterns  |  Score: 3.27
+    Reasons:
+      - genre match (+2.00)
+      - energy closeness (+0.80)
+      - valence closeness (+0.35)
+      - acousticness closeness (+0.12)
+------------------------------------------------------------
+#5  Storm Runner
+    Voltline  |  Score: 2.83
+    Reasons:
+      - energy closeness (+1.92)
+      - valence closeness (+0.41)
+      - acousticness closeness (+0.50)
+------------------------------------------------------------
+```
+
+---
+
 ## Experiments You Tried
 
 ### Swapping the genre and mood weights
