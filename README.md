@@ -818,15 +818,15 @@ Baseline: genre 2.0, mood 1.0. Experiment: genre 1.0, mood 2.0. Everything else 
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
+- **Tiny catalog.** It only has 18 songs. Thirteen of the 15 genres have a single song, so a genre match works like picking one song. Only lofi has real choice.
+- **No lyrics, language or artist.** It cannot tell a love song from a protest song. It also ignores era, popularity and what you have already heard.
+- **Exact labels only.** "Indie" gets no credit for "indie pop," and "chill" gets none for "relaxed."
+- **It over-favors the genre you name.** Genre and mood are 3 of 7 points, so the top 5 stays inside your genre. Nothing adds variety.
+- **Mood counts for little.** A sad listener who wants energetic pop still gets cheerful pop.
+- **Gaps in the data.** No song is both high energy and acoustic, so people who want that get the closest thing. The scorer also never says "I'm not sure," so weak matches look as confident as strong ones.
+- **Fragile inputs.** A profile with no genre or mood crashes the scorer, and impossible numbers (like energy 1.5) are not flagged.
 
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+See [model_card.md](model_card.md) for more detail.
 
 ---
 
@@ -836,10 +836,9 @@ Read and complete `model_card.md`:
 
 [**Model Card**](model_card.md)
 
-Write 1 to 2 paragraphs here about what you learned:
+**How recommenders turn data into predictions.** My recommender is only addition. It gives each song points for matching your genre and mood, and for being close to your energy and other targets. Then it sorts by total points. That simple idea still produced results that felt right, like calm songs for the lofi profile and loud ones for rock. The "Reasons" list made it feel even smarter. But the weights are choices I made, and they matter. When I turned off the mood check, 6 of my 11 test profiles changed order and 3 got a new #1 pick. The new lists were not clearly better, only different.
 
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
+**Where bias or unfairness could show up.** Most of the bias came from the data, not the math. With only 18 songs, most genres had one song. That song got a big genre bonus and showed up first, so fans of some genres got better lists than others. Gym Hero showing up for happy-pop fans is the clearest example. The system also never says "I'm not sure," so a weak match looks as sure as a strong one. In a real app, the same problems could be bigger. A small or lopsided catalog, or exact-match rules, could quietly give some listeners and some artists less exposure. Nobody would notice unless they tested different kinds of users, like I did with the edge-case profiles.
 
 
 
