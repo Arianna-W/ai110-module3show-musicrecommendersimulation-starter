@@ -127,6 +127,8 @@ Prompts:
 
 **Ways the scoring unintentionally favors some users.** Mood is worth so little that a sad listener still gets cheerful pop. The score never shows low confidence. A weak match looks as sure as a strong one. Songs near the middle of the scale, like Spacewalk Thoughts or Library Rain, show up for many users. Being "kind of close" on everything adds up. A profile with no genre or mood crashes the scorer.
 
+**Diversity and fairness.** Without any correction, a user who names one genre sees that genre's songs, and often the same artist twice, filling the top 5. That is a small filter bubble, and it also gives some artists much more exposure than others (for example, LoRoom appears twice in the lofi results). The diversity penalty reduces this. As the list is built, a song loses 1.0 point for each already-picked song by the same artist and 0.5 for each already-picked song in the same genre. In the Chill Lofi profile, Focus Flow (a second LoRoom song and a third lofi song) drops from #3 to #4, below Spacewalk Thoughts, so a different artist and genre get a slot. The penalty is a nudge, not a guarantee: a song that scores far above the rest can still win a second slot. Each penalty also shows in the song's reasons, so the change is visible. The sizes (1.0 and 0.5) are untuned, and with one song per artist or genre in most of the catalog the effect is limited. `--no-diversity` turns it off for comparison.
+
 ---
 
 ## 7. Evaluation  
