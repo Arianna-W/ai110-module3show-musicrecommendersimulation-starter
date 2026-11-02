@@ -2,10 +2,12 @@
 
 ## Project Summary
 
-**LofiMatch** is a small, command-line music recommender. It reads an 18-song catalog from `data/songs.csv`, compares each song to a user's taste profile, and prints the top five matches along with the reasons each one was picked.
+**LofiMatch** is a small, command-line music recommender. It reads an 18-song catalog from `data/songs.csv`, compares each song to a user's taste profile, and prints the top five matches in a table, with the reasons each one was picked.
 
-- **Taste profile:** a favorite genre and mood, a target energy level, an acoustic preference and a target positivity (valence), plus an optional target tempo and danceability.
-- **Scoring:** every song earns up to 7 points. Genre and mood are all-or-nothing matches, and the numeric features earn partial credit the closer they are to the user's target.
+- **Taste profile:** a favorite genre and mood, a target energy level, an acoustic preference and a target positivity (valence), plus optional targets for tempo, danceability, popularity, release decade, mood tags, instrumentalness, explicit lyrics and song length.
+- **Scoring:** the core features give up to 7 points, and the optional attributes add up to 3.5 more when the user sets a target. Genre and mood are all-or-nothing matches, and the numeric features earn partial credit the closer they are to the user's target.
+- **Ranking modes:** `--mode` switches between `balanced`, `genre-first`, `mood-first` and `energy-focused`.
+- **Diversity:** a penalty for repeat artists and genres keeps the top 5 from filling with one artist (`--no-diversity` turns it off).
 - **Output:** a ranked list where each song shows a point-by-point breakdown, such as "genre match (+2.00)" or "energy closeness (+1.96)".
 - **Focus:** the demo profile is a late-night study session, so the system is tuned to surface calm, low-energy, acoustic-leaning lofi tracks.
 
