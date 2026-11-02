@@ -1,10 +1,10 @@
 # AI Interactions Log
 
-> **Stretch features only.** Only fill in the sections that apply to stretch features you attempted. If you did not attempt a stretch feature, leave its section blank or delete it. This file is not required for the core project.
+> Documents the stretch features I attempted: additional attributes (agentic workflow), ranking modes (design pattern), the diversity penalty and the formatted table output.
 
 ---
 
-## Agentic Workflow (SF8)
+## Agentic Workflow (SF8: Additional Song Attributes)
 
 > Document your experience using an AI agent (e.g., Cursor Agent, Claude, Copilot) to make multi-step changes autonomously.
 
@@ -46,7 +46,7 @@ Extend the song dataset with 5+ complex attributes that the baseline data lacked
 
 ---
 
-## Design Pattern (SF10)
+## Design Pattern (SF10: Multiple Ranking Modes)
 
 > Document how AI helped you choose or implement a design pattern.
 
@@ -86,7 +86,9 @@ It recommended option 3, since the modes differ only in how much each feature co
 
 ---
 
-## Diversity Penalty
+## Diversity Penalty (Stretch: Diversity, Novelty or Fairness)
+
+The fairness explanation is in `model_card.md`, section 6 ("Diversity and fairness").
 
 **Prompt:** *"Implement a Diversity Penalty that prevents the recommender from suggesting too many songs from the same artist or genre in the top results. A rule to penalize a song's score if its artist is already present in the top recommendations list."*
 
@@ -107,7 +109,7 @@ It recommended option 3, since the modes differ only in how much each feature co
 
 ---
 
-## Formatted Terminal Output
+## Formatted Terminal Output (Stretch: Visual Output)
 
 **Prompt:** *"Improve the readability of your terminal output by providing a formatted table or summary. Suggest a way to use a library like tabulate or simple ASCII formatting to display your top recommendations. The table must include the reasons for each score."*
 
