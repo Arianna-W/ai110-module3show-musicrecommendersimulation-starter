@@ -40,9 +40,9 @@ LofiMatch suggests songs from a small catalog. You tell it your favorite genre, 
 
 Think of a judge. The judge scores every song against what you like. Then the judge hands you the top scorers.
 
-**What it knows about you.** Your favorite genre and mood. Your target energy. Whether you like acoustic sounds. Optionally, how upbeat you want it to feel.
+**What it knows about you.** Your favorite genre and mood. Your target energy. Whether you like acoustic sounds. Optionally, how upbeat you want it to feel, plus targets for popularity, decade, mood tags, instrumentalness, explicit lyrics and song length.
 
-**What it looks at in each song.** Genre, mood, energy, valence (how positive it sounds) and acousticness. It can also check tempo and danceability.
+**What it looks at in each song.** Genre, mood, energy, valence (how positive it sounds) and acousticness. It can also check tempo and danceability, and the six added attributes (popularity, release decade, mood tags, instrumentalness, explicit, duration).
 
 **How a song earns points.** A song can earn up to 7 points:
 
@@ -55,6 +55,10 @@ Think of a judge. The judge scores every song against what you like. Then the ju
 - **Danceability (up to 0.5):** scored by closeness, like energy.
 
 Tempo and danceability are optional. If you skip them, no points are given or lost.
+
+**Optional extras.** Popularity (0.5), release decade (0.5, a 50-year gap earns nothing), mood tags (1.0, the share of your wanted tags the song has), instrumentalness (0.5), explicit (0.25, points unless you opted out) and duration (0.25, a 180-second gap earns nothing) work the same way. They raise the theoretical maximum from 7 to 10.5 only when you set them.
+
+**Ranking modes and diversity.** `--mode` swaps the weight set (balanced, genre-first, mood-first or energy-focused). While picking the top results, a song loses 1.0 point per already-picked song by the same artist and 0.5 per already-picked song in the same genre.
 
 **Picking the results.** The model adds up the points for every song. It sorts from highest to lowest and shows the top few. Ties are ordered by title.
 
@@ -70,13 +74,15 @@ Tempo and danceability are optional. If you skip them, no points are given or lo
 - **Moods:** chill (3 songs), happy (2), intense (2), and one each of relaxed, moody, focused, nostalgic, euphoric, romantic, confident, melancholic, angry, laid-back and sad.
 - **Energy** runs from 0.22 (classical) to 0.97 (metal). Both calm and intense music are covered.
 
+**Added attributes.** Six columns were added to every song: `popularity`, `release_decade`, `mood_tags` (several tags per song), `instrumentalness`, `explicit` and `duration_sec`. All are optional in scoring and only count when the user gives a target.
+
 **Added data.** The starter file had 10 songs. I added 8 more (ids 11 to 18). They add country, electronic, r&b, hip hop, classical, metal, reggae and blues. I removed none. The songs, artists and scores are made up.
 
 **What's missing.**
 
 - **Depth in any genre.** Nearly every genre has one song. That song is the only genre match. The rest of the list is filled by closeness. Only lofi has real choice.
 - **Lyrics and language.** No data on lyrics, language or vocals.
-- **Era and popularity.** Nothing says when a song came out or how well known it is.
+- **Era and popularity.** These are now in the data (`release_decade`, `popularity`), but the values are invented for the simulation, not real chart or release data.
 - **Global and niche styles.** K-pop, Latin, Afrobeats, folk and most subgenres are missing.
 - **Overlapping labels.** "Chill," "relaxed" and "laid-back" mean almost the same. The model treats them as totally different.
 
@@ -113,11 +119,11 @@ Prompts:
 
 **One weakness I found:** The system gives a big bonus for matching genre. But most genres in the dataset have only one song. Lofi fans get three matching songs, so their top 5 looks great. Fans of almost any other genre get one matching song. The rest of their list is filled by whatever is closest on numbers like energy. The genre match is also exact. So "indie" gets no credit for "indie pop." The recommender works better for some tastes than others. This is mostly because of how the dataset is built.
 
-**Features it does not consider.** It ignores lyrics, language, artist, era and what you've already heard. It also can't tell that some genres or moods are related. "Indie" and "indie pop" are related. So are "chill" and "relaxed."
+**Features it does not consider.** It ignores lyrics and language. Artist only matters through the diversity penalty. Era, popularity and the other added attributes count only when you set a target, and it doesn't know what you've already heard. It also can't tell that some genres or moods are related. "Indie" and "indie pop" are related. So are "chill" and "relaxed."
 
 **Genres or moods that are underrepresented.** The dataset has only 18 songs. Thirteen of the 15 genres have one song. Most moods appear once. No song is both high energy and acoustic. Only one song is calm and upbeat. People who want those mixes get the closest thing, not a real match.
 
-**Where it overfits to one preference.** Genre and mood together are worth 3 of the 7 points. So the top 5 tends to stay inside the genre you named. A lofi fan sees mostly lofi. Nothing tries to show you something different.
+**Where it overfits to one preference.** Genre and mood together are worth 3 of the 7 core points. So the top 5 tends to stay inside the genre you named. A lofi fan sees mostly lofi. The diversity penalty pushes repeat artists and genres down, but it is only a small nudge.
 
 **Ways the scoring unintentionally favors some users.** Mood is worth so little that a sad listener still gets cheerful pop. The score never shows low confidence. A weak match looks as sure as a strong one. Songs near the middle of the scale, like Spacewalk Thoughts or Library Rain, show up for many users. Being "kind of close" on everything adds up. A profile with no genre or mood crashes the scorer.
 
@@ -136,13 +142,13 @@ Prompts:
 
 No need for numeric metrics unless you created some.
 
-**Profiles tested.** I ran 11 profiles. Three are normal tastes: High-Energy Pop, Chill Lofi and Deep Intense Rock. Eight are edge cases meant to break the scoring: Sad but Hyper, Unknown Genre, Near-Miss Genre, Out-of-Range Numbers, Dead Center, Extremist, Missing Keys and Genre-Only Loyalist. For each one, I checked if the top 5 looked like what that person would want.
+**Profiles tested.** I ran 13 profiles. Three are normal tastes: High-Energy Pop, Chill Lofi and Deep Intense Rock. Two more (Nostalgic Throwback and Aggressive Underground) use the added attributes. The comparisons below were mostly made on the original profiles, before the added attributes and diversity penalty. Eight are edge cases meant to break the scoring: Sad but Hyper, Unknown Genre, Near-Miss Genre, Out-of-Range Numbers, Dead Center, Extremist, Missing Keys and Genre-Only Loyalist. For each one, I checked if the top 5 looked like what that person would want.
 
 **Why does "Gym Hero" keep showing up for people who just want happy pop?** Gym Hero is a pop song, so it gets the full genre bonus. It is also very high energy and very danceable. That is what "high-energy pop" asks for. It is not happy. It is "intense." So it misses the mood bonus. But mood is only worth 1 point out of 7. Genre plus energy add up to more. So Gym Hero lands at #2, right behind Sunrise City. Sunrise City matches on everything. The dataset has only two pop songs. After Sunrise City, a pop fan has nowhere else to go. Gym Hero also shows up for Deep Intense Rock and Sad but Hyper. It is loud and fast, and that is most of what those profiles want.
 
 **Comparing profiles (what changed and why it makes sense):**
 
-- **High-Energy Pop vs. Chill Lofi:** Pop gets bright, loud songs (Sunrise City, Gym Hero, Bass Cathedral). Lofi gets slow, quiet, acoustic songs (Midnight Coding, Library Rain, Focus Flow). The lists share no songs. That fits two opposite tastes.
+- **High-Energy Pop vs. Chill Lofi:** Pop gets bright, loud songs (Sunrise City, Gym Hero, Bass Cathedral). Lofi gets slow, quiet, acoustic songs (Midnight Coding, Library Rain, Spacewalk Thoughts). The lists share no songs. That fits two opposite tastes.
 - **High-Energy Pop vs. Deep Intense Rock:** Both want loud music. They share Gym Hero, Bass Cathedral and Storm Runner. The top pick differs. Pop gets the cheerful Sunrise City. Rock gets Storm Runner, its only rock song. Rock also wants a darker feel and a faster tempo. That is why the angry metal song Iron Hymn is in its top 5 and not in pop's.
 - **Chill Lofi vs. Deep Intense Rock:** These are opposite ends of the energy scale. They share no songs. So the energy score works.
 - **High-Energy Pop vs. Sad but Hyper:** Both want energetic pop. But Sad but Hyper asks for a sad mood. No song is both sad and pop. So the mood bonus never fires. The list is almost the same as pop's. Only the sad Blue Highway Blues sneaks in at #5. This surprised me. The system hears energy and genre and mostly ignores the mood. A sad listener gets cheerful pop.
@@ -165,12 +171,12 @@ Prompts:
 
 - Additional features or preferences  
 - Better ways to explain recommendations  
-- Improving diversity among the top results  
+- Improving diversity among the top results (done: see item 2)  
 - Handling more complex user tastes  
 
 **1. Give partial credit for similar genres and moods.** Right now "indie" gets nothing for "indie pop." "Chill" gets nothing for "relaxed." A small table of close cousins would fix this. It would also help genres that have only one song.
 
-**2. Mix up the top 5.** Right now the list stays inside the genre you picked. I would cap how many songs from one genre or artist can appear. That leaves room for one or two surprises.
+**2. Mix up the top 5. (Partly done.)** A diversity penalty now subtracts points for repeat artists and genres, and ranking modes (`--mode`) change the weights. The penalty sizes are untuned, and they don't guarantee variety. Original idea: Right now the list stays inside the genre you picked. I would cap how many songs from one genre or artist can appear. That leaves room for one or two surprises.
 
 **3. Handle complex and missing tastes.** Let users pick more than one mood or genre. Make acousticness and valence optional, like tempo. Stop the crash when genre or mood is missing. Add a warning when the best match is weak. Then a poor result won't look as sure as a great one.
 
